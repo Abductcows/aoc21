@@ -1,11 +1,6 @@
 import re
 
 
-def run_with_file(file, run_function):
-    lines = get_lines(file)
-    return run_function(lines)
-
-
 def get_lines(filename):
     lines = []
     with open(filename) as file:
@@ -37,4 +32,5 @@ def get_input_for_day(day_with_num):
     while lines and not lines[0]:
         lines.remove(0)
 
+    assert lines, 'Read empty input???'
     return lines

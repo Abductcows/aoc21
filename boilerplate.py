@@ -6,4 +6,4 @@ def run(lines):
 
 if __name__ == '__main__':
     print(run_with_file('example.txt', run))
-    print(run(get_input_for_day('d')))
+    # print(run(get_input_for_day('d')))

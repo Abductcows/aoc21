@@ -1,13 +1,5 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
+from utils import run_with_file, get_input_for_day
 
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
 
 
 def get_direction_coords(direction, length):
@@ -16,9 +8,7 @@ def get_direction_coords(direction, length):
     return x * int(length), y * int(length)
 
 
-def run(filename):
-    lines = get_lines(filename)
-
+def run(lines):
     x, y = 0, 0
 
     for line in lines:
@@ -26,9 +16,9 @@ def run(filename):
         x += move[0]
         y += move[1]
 
-    print(x * y)
+    return -x * y
 
 
 if __name__ == '__main__':
-    run('example.txt')
-    run('input.txt')
+    print(run_with_file('example.txt', run))
+    print(run(get_input_for_day('d2')))

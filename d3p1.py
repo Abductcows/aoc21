@@ -1,18 +1,7 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
-
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
+from utils import run_with_file, get_input_for_day
 
 
-def run(filename):
-    lines = get_lines(filename)
-
+def run(lines):
     bit_len = len(lines[0])
     nums = [int(line, 2) for line in lines]
 
@@ -28,9 +17,9 @@ def run(filename):
 
     epsilon = ~gamma & ((1 << bit_len) - 1)
     print(f'{gamma=:0{bit_len}b}, {epsilon=:0{bit_len}b}')
-    print(gamma * epsilon)
+    return gamma * epsilon
 
 
 if __name__ == '__main__':
-    run('example.txt')
-    run('input.txt')
+    print(run_with_file('example.txt', run))
+    print(run(get_input_for_day('d3')))

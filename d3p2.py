@@ -1,13 +1,4 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
-
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
+from utils import run_with_file, get_input_for_day
 
 
 def get_gamma_epsilon(nbits, nums):
@@ -25,9 +16,7 @@ def get_gamma_epsilon(nbits, nums):
     return gamma, epsilon
 
 
-def run(filename):
-    lines = get_lines(filename)
-
+def run(lines):
     nbits = len(lines[0])
     nums_oxy = [int(e, 2) for e in lines]
     nums_co2 = nums_oxy[::]
@@ -53,9 +42,9 @@ def run(filename):
         cursor >>= 1
 
     print(f'{oxy=:0{nbits}b}, {co2=:0{nbits}b}')
-    print(oxy * co2)
+    return oxy * co2
 
 
 if __name__ == '__main__':
-    run('example.txt')
-    run('input.txt')
+    print(run_with_file('example.txt', run))
+    print(run(get_input_for_day('d3')))

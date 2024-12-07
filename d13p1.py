@@ -30,6 +30,7 @@ def run(lines):
     for grid_line in grid:
         print(' '.join(grid_line))
     print()
+
     return len(points)
 
 

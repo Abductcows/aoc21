@@ -30,7 +30,7 @@ def run(lines):
     grid = [['#' if (col, row) in points else '.' for col in range(41)] for row in range(7)]
     for grid_line in grid:
         print(' '.join(grid_line))
-    print('\n')
+    print()
 
     serialized = str(sorted(points)).encode('utf-8')
     return int(hashlib.sha256(serialized).hexdigest(), 16)

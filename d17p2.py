@@ -42,17 +42,22 @@ def try_initials(bound_xl, bound_xr, bound_yl, bound_yr):
             x_rbound_sol = min(x_rbound_sol)
 
         for y0 in range(max(1, -bound_yr), bound_yr + sign(bound_yr), sign(bound_yr)):
+            allowed_t = integers_between(x_lbound_sol, x_rbound_sol)
+
             y_lbound_sol = solve_quadratic(-0.5, y0 + 0.5, -bound_yl)
             if not y_lbound_sol:
                 continue
-            if min(y_lbound_sol) < 0:
-                y_lbound_sol = max(y_lbound_sol)
-                y_rbound_sol = max(solve_quadratic(-0.5, y0 + 0.5, -bound_yr))
-            else:
-                pass # todo for positive y bounds. not in example or input
 
-            allowed_t = integers_between(x_lbound_sol, x_rbound_sol)
-            allowed_t &= integers_between(y_lbound_sol, y_rbound_sol)
+            y_rbound_sol = solve_quadratic(-0.5, y0 + 0.5, -bound_yr)
+            if min(y_lbound_sol) < 0:
+                y_lbound_sol, y_rbound_sol = max(y_lbound_sol), max(y_rbound_sol)
+                allowed_t &= integers_between(y_lbound_sol, y_rbound_sol)
+            else:
+                if not y_rbound_sol:
+                    allowed_t &= integers_between(*y_lbound_sol)
+                else:
+                    allowed_t &= (integers_between(y_lbound_sol[0], y_rbound_sol[0])
+                                  | integers_between(y_lbound_sol[1], y_rbound_sol[1]))
 
             if allowed_t:
                 allowed_initials.append((x0, y0))
